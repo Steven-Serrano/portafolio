@@ -274,7 +274,7 @@
       <ul class="nav flex-column gap-2 fs-5">
         <li><a class="nav-link text-white" href="#inicio" data-bs-dismiss="offcanvas">🏠 Inicio</a></li>
         <li><a class="nav-link text-white" href="#sobre-mi" data-bs-dismiss="offcanvas">👤 Sobre mí</a></li>
-        <li><a class="nav-link text-white" href="#skills" data-bs-dismiss="offcanvas"> Skills</a></li>
+        <li><a class="nav-link text-white" href="#skills" data-bs-dismiss="offcanvas">⚡Skills</a></li>
         <li><a class="nav-link text-white" href="#proyectos" data-bs-dismiss="offcanvas">🚀 Proyectos</a></li>
         <li><a class="nav-link text-white" href="#contacto" data-bs-dismiss="offcanvas">📬 Contacto</a></li>
       </ul>
@@ -1100,6 +1100,31 @@ form.addEventListener('submit', async function(e) {
         const link = document.querySelector(`.nav-link[href="#${id}"]`);
         if (link) {
           link.classList.toggle('active', scrollY >= top && scrollY < top + height);
+        }
+      });
+    });
+        // ── ARREGLO MENÚ MÓVIL: Forzar cierre y scroll suave ──
+    const mobileLinks = document.querySelectorAll('#menu .nav-link');
+    const offcanvasElement = document.getElementById('menu');
+    
+    // Inicializamos la instancia del offcanvas de Bootstrap
+    const bsOffcanvas = new bootstrap.Offcanvas(offcanvasElement);
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        // 1. Cerrar el menú móvil manualmente
+        bsOffcanvas.hide();
+        
+        // 2. Obtener a qué sección debemos ir
+        const targetId = this.getAttribute('href');
+        const targetSection = document.querySelector(targetId);
+        
+        // 3. Hacer el scroll suave con un pequeño retraso 
+        // (para que el menú alcance a cerrarse primero)
+        if (targetSection) {
+          setTimeout(() => {
+            targetSection.scrollIntoView({ behavior: 'smooth' });
+          }, 350); 
         }
       });
     });
