@@ -322,7 +322,7 @@
           ════════════════════════════════════════════════
           -->
           <div class="avatar-ring mx-auto mb-3">
-            <img src="/img/ChatGPT Image 15 sept 2026, 11_10_16.png" 
+            <img src="https://api.dicebear.com/9.x/initials/svg?seed=SS&backgroundColor=0a0a0f&textColor=00ff88" 
                  alt="Steven Serrano" id="profileImage">
           </div>
           <div class="d-flex justify-content-center gap-3 mt-3">
@@ -821,7 +821,58 @@
       </div>
     </div>
   </section>
-      
+        <!-- Formulario -->
+        <div class="col-lg-7">
+          <form class="needs-validation" novalidate id="contactForm">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label text-white">Nombre</label>
+                <input type="text" class="form-control" placeholder="Tu nombre" required>
+                <div class="invalid-feedback">Escribe tu nombre.</div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label text-white">Email</label>
+                <input type="email" class="form-control" placeholder="tu@email.com" required>
+                <div class="invalid-feedback">Email inválido.</div>
+              </div>
+              <div class="col-12">
+                <label class="form-label text-white">Asunto</label>
+                <select class="form-select" required>
+                  <option value="">Selecciona...</option>
+                  <option>Oferta laboral</option>
+                  <option>Proyecto freelance</option>
+                  <option>Colaboración</option>
+                  <option>Otro</option>
+                </select>
+                <div class="invalid-feedback">Elige una opción.</div>
+              </div>
+              <div class="col-12">
+                <label class="form-label text-white">Mensaje</label>
+                <textarea class="form-control" rows="4" placeholder="Cuéntame sobre tu proyecto..." required></textarea>
+                <div class="invalid-feedback">Escribe un mensaje.</div>
+              </div>
+              <div class="col-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="acepto" required
+                         style="border-color:rgba(255,255,255,.2)">
+                  <label class="form-check-label text-secondary" for="acepto">
+                    Acepto que me contactes por WhatsApp o Instagram
+                  </label>
+                  <div class="invalid-feedback">Debes aceptar.</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-glow">
+                  <i class="bi bi-send-fill"></i> Enviar mensaje
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════════ FOOTER ═════════════ -->
   <footer class="py-4">
     <div class="container">
@@ -956,19 +1007,7 @@
     </div>
   </div>
 
-  <!-- ══════════════ TOAST ════════════ -->
-  <div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="liveToast" class="toast" role="alert" style="background:var(--card-bg);border:1px solid var(--dark-purple)">
-      <div class="toast-header" style="background:var(--dark-purple);color:#fff">
-        <i class="bi bi-check-circle-fill me-2"></i>
-        <strong class="me-auto">¡Mensaje enviado!</strong>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
-      </div>
-      <div class="toast-body text-white">
-        Gracias por escribirme. Revisaré tu mensaje y te responderé pronto 📧
-      </div>
-    </div>
-  </div>
+
 
   <!-- ══════════════ SCRIPTS ══════════════ -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
