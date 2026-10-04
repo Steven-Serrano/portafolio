@@ -236,6 +236,20 @@
     footer {
       border-top: 1px solid rgba(74,20,140,.3); /* 💜 Borde morado */
     }
+
+    /* ── ANIMACIÓN DE FILTRO ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.project-item {
+  transition: all 0.3s ease;
+}
+
+.project-item.d-none {
+  display: none !important;
+}
   </style>
 </head>
 <body>
@@ -565,31 +579,24 @@
       <h2 class="section-title text-white mb-5">Proyectos</h2>
 
       <!-- Filtros con pills -->
-      <ul class="nav nav-pills gap-2 mb-4 mt-3 flex-wrap">
-        <li class="nav-item">
-          <button class="nav-link active" style="background:var(--dark-purple);color:#fff;border-radius:50px"
-                  data-bs-toggle="pill" data-bs-target="#all">Todos</button> <!-- 💜 Morado -->
-        </li>
-        <li class="nav-item">
-          <button class="nav-link text-white" style="border-radius:50px;border:1px solid rgba(255,255,255,.1)"
-                  data-bs-toggle="pill" data-bs-target="#frontend">Frontend</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link text-white" style="border-radius:50px;border:1px solid rgba(255,255,255,.1)"
-                  data-bs-toggle="pill" data-bs-target="#fullstack">Full Stack</button>
-        </li>
-      </ul>
-
-      <div class="tab-content">
-        <div class="tab-pane fade show active" id="all">
-          <div class="row g-4">
-
+      <ul class="nav nav-pills gap-2 mb-4 mt-3 flex-wrap" id="projectFilters">
+  <li class="nav-item">
+    <button class="nav-link active filter-btn" data-filter="all" style="background:var(--dark-purple);color:#fff;border-radius:50px">Todos</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link text-white filter-btn" data-filter="frontend" style="border-radius:50px;border:1px solid rgba(255,255,255,.1)">Frontend</button>
+  </li>
+  <li class="nav-item">
+    <button class="nav-link text-white filter-btn" data-filter="fullstack" style="border-radius:50px;border:1px solid rgba(255,255,255,.1)">Full Stack</button>
+  </li>
+</ul>
+<div class="row g-4" id="projectsContainer">
             <!-- 
             ════════════════════════════════════════════════
             📱 PROYECTO 1 
             ════════════════════════════════════════════════
             -->
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-4 project-item" data-category="Fullstack"></div>
               <div class="project-card h-100">
                 <div class="position-relative">
                   <!-- 💜 EDITAR: Cambia esta URL por screenshot de tu proyecto -->
@@ -619,11 +626,11 @@
             📱 PROYECTO 2
             ════════════════════════════════════════════════
             -->
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-4 project-item" data-category="Frontend"></div>
               <div class="project-card h-100">
                 <div class="position-relative">
                   <!-- 💜 EDITAR: Cambia esta URL -->
-                  <img src="img/cosas bonitas.png" class="project-img" alt="Cosas Bonitas">
+                  <img src="img/cosas-bonitas.png" class="project-img" alt="Cosas Bonitas">
                   <div class="project-overlay">
                     <button class="btn btn-glow btn-sm" data-bs-toggle="modal" data-bs-target="#proj2Modal">
                       <i class="bi bi-eye"></i> Ver más
@@ -647,11 +654,11 @@
             📱 PROYECTO 3 
             ════════════════════════════════════════════════
             -->
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-4 project-item" data-category="Fullstack">
               <div class="project-card h-100">
                 <div class="position-relative">
                   <!-- 💜 EDITAR: Cambia esta URL -->
-                  <img src="img/sema.png" class="project-img" alt="Página de Salud Mental">
+                  <img src="img/SEMA.png" class="project-img" alt="Página de Salud Mental">
                   <div class="project-overlay">
                     <button class="btn btn-glow btn-sm" data-bs-toggle="modal" data-bs-target="#proj3Modal">
                       <i class="bi bi-eye"></i> Ver más
@@ -706,14 +713,6 @@
 
           </div>
         </div>
-        <div class="tab-pane fade" id="frontend">
-          <p class="text-secondary text-center py-5">Filtrando proyectos de Frontend...</p>
-        </div>
-        <div class="tab-pane fade" id="fullstack">
-          <p class="text-secondary text-center py-5">Filtrando proyectos Full Stack...</p>
-        </div>
-      </div>
-    </div>
   </section>
 
     <!-- ══════════════ CONTACTO ══════════════ -->
@@ -859,8 +858,8 @@
       <div class="modal-content" style="background:var(--card-bg);border:1px solid rgba(255,255,255,.1)">
         <div class="modal-header border-0">
           <h5 class="modal-title text-white">
-            <i class="bi bi-kanban" style="color:var(--dark-purple)"></i> <!-- 💜 Morado -->
-            Task Manager App
+            <i class="bi bi-" style="color:var(--dark-purple)"></i> <!-- 💜 Morado -->
+            Portafolio Dr. Martínez
           </h5>
           <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
@@ -1093,6 +1092,35 @@ form.addEventListener('submit', async function(e) {
         }
       });
     });
+
+    // ── FILTRO DE PROYECTOS ──
+const filterBtns = document.querySelectorAll('.filter-btn');
+const projectItems = document.querySelectorAll('.project-item');
+
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Actualizar estilo visual de los botones
+    filterBtns.forEach(b => {
+      b.classList.remove('active');
+      b.style.background = 'transparent';
+      b.style.color = '#fff';
+    });
+    btn.classList.add('active');
+    btn.style.background = 'var(--dark-purple)';
+    
+    // Filtrar las tarjetas
+    const filterValue = btn.getAttribute('data-filter');
+    
+    projectItems.forEach(item => {
+      if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+        item.classList.remove('d-none');
+        item.style.animation = 'fadeInUp 0.4s ease forwards';
+      } else {
+        item.classList.add('d-none');
+      }
+    });
+  });
+});
   </script>
 </body>
 </html>
